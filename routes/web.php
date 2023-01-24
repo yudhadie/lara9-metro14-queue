@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataController;
 use App\Http\Controllers\Admin\Information\ActivityController;
 use App\Http\Controllers\Admin\UserController;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('coming-soon');
 })->name('home');
+
+Route::get('/send-email',function(){
+    $data = [
+        'name' => 'Yudha Adi M',
+        'body' => 'Testing Kirim Email di laravel jjpromotion'
+    ];
+
+    Mail::to('it.jjpromotion@gmail.com')->send(new SendEmail($data));
+
+    dd("Email Berhasil dikirim.");
+});
+
 
 Route::get('/error-admin', function () { return view('errors.admin'); })->name('error.admin');
 Route::get('/error-active', function () { return view('errors.active'); })->name('error.active');
