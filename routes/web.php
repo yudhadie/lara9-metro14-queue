@@ -3,8 +3,9 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataController;
 use App\Http\Controllers\Admin\Information\ActivityController;
+use App\Http\Controllers\Admin\SendEmailController;
 use App\Http\Controllers\Admin\UserController;
-use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -23,15 +24,9 @@ Route::get('/', function () {
     return view('coming-soon');
 })->name('home');
 
-Route::get('/send-email',function(){
-    $data = [
-        'name' => 'Yudha Adi M',
-        'body' => 'Testing Kirim Email di laravel jjpromotion'
-    ];
-
-    Mail::to('it.jjpromotion@gmail.com')->send(new SendEmail($data));
-
-    dd("Email Berhasil dikirim.");
+Route::get('/job', function () {
+    Artisan::call('queue:work');
+    return 'Job Started....';
 });
 
 
@@ -45,6 +40,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::middleware(['admin'])->group(function () {
         //Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        //Mail
+        Route::get('/email', [SendEmailController::class, 'index'])->name('email.index');
+        Route::post('/email', [SendEmailController::class, 'store'])->name('email.store');
 
         //Setting
             //User

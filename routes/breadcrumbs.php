@@ -8,6 +8,12 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
      $trail->push('Dashboard', route('dashboard'));
 });
 
+//Email
+Breadcrumbs::for('email', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Email', route('email.index'));
+});
+
 //Setting
 Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
