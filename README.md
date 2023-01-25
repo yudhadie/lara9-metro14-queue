@@ -62,3 +62,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Share Hosting
+If you deploy in share hosting, create cronjob
+/usr/bin/php /home/u439324945/public_html/subdomain/test/artisan queue:work
