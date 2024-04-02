@@ -22,7 +22,7 @@ class SendEmailController extends Controller
     {
         $data = $request->all();
 
-        dispatch(new SendMailJob($data));
+        dispatch(new SendMailJob($data))->onQueue('default');
         return redirect()->route('email.index')->with(['success' => 'Pesan Berhasil dikirim']);
     }
 }
